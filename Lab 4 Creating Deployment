@@ -1,0 +1,66 @@
+Lab:04 defined a Kubernetes Deployment with three replicas of a pod that runs a single container.
+
+
+1.Open Editor and create a lab_04.yaml file.
+
+2. Enter below yaml structure
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-container
+        image: my-image:latest
+        env:
+        - name: MY_ENV_VAR
+          value: "my-value"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+
+3. Save the file and execute below command
+
+Kubectl apply -f lab_04. Yaml
+
+4. Verify output using 
+
+Kubectl get deployments -A
+
+
+Explanation:  
+
+In this example, we have defined a Kubernetes deployment with three replicas of a pod that runs a single container. Here are some important parts of the pod specification:
+
+name: The name of the deployment.
+replicas: The number of replicas to create.
+selector: The labels used to select which pods to manage with this deployment.
+template: The pod template used to create new pods.
+Within the template section, we have defined the containers section, which contains the specification for the container to run in the pod. Here are some important parts of the container specification:
+
+name: The name of the container.
+image: The container image to use.
+env: Environment variables to set within the container.
+resources: Resource requirements and limits for the container.
+
+Lab Summary:
+
+In this Lab, we created a YAML file that sets the environment variable MY_ENV_VAR with the value my-value, and we have set a memory request of 256Mi and a memory limit of 512Mi for the container. We have also set a CPU request of 250m and a CPU limit of 500m.
+
+
+
