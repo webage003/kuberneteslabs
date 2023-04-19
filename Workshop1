@@ -1,0 +1,19 @@
+Workshop: use namespaces to organize your resources and secrets to securely store sensitive information
+
+Objective 
+
+In this workshop, you will learn how to deploy a microservice and a database using Kubernetes. You will also learn how to use namespaces to organize your resources and secrets to securely store sensitive information. You will then use Kubernetes load balancing to distribute traffic to your microservice and connect it to the database using secrets. Finally, you will set up an Ingress to expose your microservice to requests from a domain URI.
+
+Prerequisites 
+
+•	A basic understanding of Kubernetes concepts such as Pods, Deployments, Services, and Ingress.
+•	Access to a Kubernetes cluster.
+
+Steps to complete Workshop
+
+•	Use secrets
+•	Use namespaces
+•	Deploy containers (a microservice and a database)
+•	Use K8s load balancing
+•	Connect a micro-service to a database with secrets
+•	Hook up an Ingress to expose the service to requests from a domain URI
