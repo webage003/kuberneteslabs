@@ -1,0 +1,95 @@
+Lab:6 configuring liveness and readiness probes for a pod in a Kubernetes deployment file
+
+Lab Task:
+
+Define a pod with a single container running the nginx image. Also specify a readiness probe that checks the root path of the container's web server every 10 seconds with an initial delay of 5 seconds. 
+
+Additionally, define a liveness probe that checks the root path of the container's web server every 20 seconds with an initial delay of 15 seconds.
+
+Step:1 verify if namespace named my-namespace if not Create a namespace.
+
+Kubectl get ns 
+
+If you don’t get namespace named my-namespace execute below command to create.
+
+ kubectl create namespace my-namespace
+
+Step:2 Define Pod Configuration
+
+Create a file named my-pod.yaml  and enter below configuration, that includes liveness and readiness probes.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: nginx
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 15
+      periodSeconds: 20
+
+configuration file defines a pod with a single container running the nginx image. We have also specified a readiness probe that checks the root path of the container's web server every 10 seconds with an initial delay of 5 seconds. Additionally, we have specified a liveness probe that checks the root path of the container's web server every 20 seconds with an initial delay of 15 seconds.
+
+Step:3 Create pod by executing below command
+
+kubectl create -f my-pod.yaml --namespace my-namespace
+
+This will create the pod using the configuration defined in my-pod.yaml in the my-namespace namespace.
+
+Step:4 Verify that the Probes are Working.
+
+To verify that the probes are working, you can run the following command:
+
+kubectl describe pod my-pod --namespace my-namespace
+
+This will output detailed information about the pod, including the status of the liveness and readiness probes. You should see that both probes are succeeding.
+
+
+Step:5 update the probes to test what happens when they fail. Edit the my-pod.yaml file and change the port number for the liveness probe to an invalid port, like 8080 as specified in below configuration.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: nginx
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 20
+
+
+Step:6 Save the changes make to the file and  update the pod executing below  command:
+
+kubectl apply -f my-pod.yaml --namespace my-namespace
+
+Step 7: Verify that the Probes are Failing by executing below command
+
+kubectl describe pod my-pod --namespace my-namespace
+
+You should see that the liveness probe is failing because it cannot connect to port 8080.
+
+Summary:
+
+In this lab we configured liveness and readiness probes for a pod in Kubernetes, and tested their behavior when they succeed and fail.
