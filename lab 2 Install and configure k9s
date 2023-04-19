@@ -1,0 +1,48 @@
+LAB:02 Install K9s on ubuntu for Monitoring K3S cluster
+
+K3s is a lightweight, certified Kubernetes distribution that is designed for production workloads on resource-constrained environments such as edge computing, IoT devices, and ARM architectures. K9s, on the other hand, is a terminal-based Kubernetes dashboard that provides a visual interface for interacting with Kubernetes clusters.
+
+
+
+Step:1 Install snapd
+
+sudo apt update
+sudo apt install snapd
+
+
+Step:2 Install K9s
+
+sudo snap install k9s
+
+
+Step:3 Configure k9s 
+
+Note: Once you have installed K9s, you need to configure it to connect to your K3s cluster. To do this, you need to provide the necessary configuration details such as the Kubernetes API server URL, the certificate authority, and the authentication token.
+You can obtain these details by running the following commands on the server where K3s is installed:
+
+kubectl config view --minify –raw
+
+This will display the Kubernetes API server URL, the certificate authority, and the authentication token. Copy these details and paste them into the a normal file.
+
+
+Step:4 Create k9s configuration file 
+
+k9s --write-config
+
+Step:5 open  ~/.k9s/config.yml  file created after executing step:4 command and paste details copied in step:3 to this configuration file .
+
+
+Step:6 Verify Installation and configuration by executing below command
+
+ k9s
+
+This will launch the K9s dashboard, and you should be able to see the details of your K3s cluster.That's it! You have successfully connected K3s with K9s, and you can now use the K9s dashboard to manage your Kubernetes cluster.
+
+
+
+	 
+ 
+
+
+
+
