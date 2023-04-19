@@ -1,0 +1,40 @@
+Lab: 5 Assign Memory Resources to Containers and Pods
+
+Lab Objective: This lab demonstrates how to assign memory request and a memory limit to a Container. 
+Step: 1 Create a Namespace
+Execute below command to create new namespace
+kubectl create namespace my-namespace
+
+Step:2  Create  a configuration file that creates a pod with memory request and memory limit as shown below
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: nginx
+    resources:
+      requests:
+        memory: "256Mi"
+      limits:
+        memory: "512Mi"
+
+Step:3 Execute below command to create pod
+
+kubectl create -f my-pod.yaml --namespace my-namespace
+
+Step:4 Verify that the Pod Container is running
+Execute below command to verify Pod container is running
+
+kubectl get pods --namespace my-namespace
+
+Step:5 View detailed information about the Pod
+Execute below comma d to get  detailed information about the pod, including its resource usage
+
+kubectl describe pod my-pod --namespace my-namespace
+
+Summary :
+In this lab task, we created a namespace in Kubernetes and then defined a pod configuration file with resource requests and limits for a container. We then used the configuration file to create a pod in the namespace, and verified that the pod was running using the kubectl get pods command. Finally, we viewed detailed information about the pod including its resource usage using the kubectl describe pod command.
+
