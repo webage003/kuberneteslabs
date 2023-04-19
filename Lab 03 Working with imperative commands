@@ -1,0 +1,55 @@
+Lab:03 Imperative Commands in Kubernetes
+Task:1 create a namespace, a deployment and a service
+Execute Below commands in a Sequence 
+kubectl create ns tester
+kubectl run webserver --image=nginx -n tester
+kubectl expose deployments webserver --port 8080 --type LoadBalancer -n tester
+Explanation:
+•	run: Create a new Deployment object to run Containers in one or more Pods.
+•	expose: Create a new Service object to load balance traffic across Pods.
+Task: 2 set labels on a deployment, scale pods in deployment, set environment variable
+Execute below commands 
+kubectl label deployment webapp app=frontend
+kubectl scale --replicas 3 deployment webapp
+kubectl set env deployment/webapp WHOAMI="HAL 9000"
+
+Explanation:
+•	scale: Horizontally scale a controller to add or remove Pods by updating the replica count of the controller.
+•	annotate: Add or remove an annotation from an object.
+•	label: Add or remove a label from an object.
+•	set <field>: Set an aspect of an object.
+
+
+Task:3  Edit any object in-place using kubectl edit. 
+Execute below commands  to  edit manifest  in editor
+kubectl edit deployment/nginx-deployment
+kubectl edit svc/nginx-service # Edit the service
+
+Use below command to patch nginx-deployment object to update the replicas field from 4.
+kubectl patch deployment nginx-deployment -p'{"spec":{"replicas":4}}'
+
+
+Explanation:
+Using patch, objects field can be updated on the fly without having to open up in editor. patch also allows for more complex updates with various merging and patching strategies.
+
+Task:4 View Objects  
+
+Use following command to view objects 
+
+kubectl get deployments # or deploy for shortform
+kubectl get replicasets # gets replica set
+kubectl get pods # gets pods
+kubectl get deployment webapp -o yaml
+kubectl describe deployment webapp
+kubectl logs deployment/webapp --since 5m > /tmp/logs.txt
+
+Explanation:
+•	get: Prints basic information about matching objects. Use get -h to see a list of options.
+•	describe: Prints aggregated detailed information about matching objects.
+•	logs: Prints the stdout and stderr for a container running in a Pod.
+Task:5 Delete Objects 
+
+kubectl delete deployment/nginx
+
+Explanation:
+•	delete command can be used to delete an object from a cluster
