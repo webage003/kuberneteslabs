@@ -1,0 +1,46 @@
+Lab:01 Install K3S 
+
+Objective: Install K3s Kubernetes Cluster on Ubuntu
+Facts to Remember:
+
+K3s is a Kubernetes distribution developed by Rancher. Compared to some other Kubernetes distributions it’s lightweight, really easy to install and has only minimal operating system dependencies. One of the things that make it easy to use is, that many Kubernetes components are bundled in a single binary that bootstraps the Kubernetes installation.
+
+Defaults:
+
+K3s Uses Traefik as Ingress Controller
+By default, K3s deploys the ‘Local-path-provisioner’ storage driver within the cluster.
+
+Step:1 Prepare your System
+
+	 Change to root user 
+	  Update OS by executing apt update 
+                
+sudo -i              .      
+ apt-get update 
+		
+
+Step:2 Install Cluster 
+    
+  curl -sfL https://get.k3s.io | sh –
+
+Step:3 Verify Installation 
+ 
+systemctl status k3s.service 
+
+Step:4 Get Cluster Information
+
+ kubectl cluster-info
+
+Step:5 Configure kubectl
+
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+
+Step:6 Verify kubectl configuration
+
+ Kubectl get nodes
+
+
+	
+	 
+	
+
